@@ -104,7 +104,7 @@ def update_preview_pane():
             h = window.height
         else:
             brightness = int(
-                (255 * (1 / (ray.end.distance(ray.pos) ** 2))) * 3000
+                (255 * (1 / (ray.end.distance(ray.pos) ** 2))) * 2000
             )
 
             if brightness > 255:
