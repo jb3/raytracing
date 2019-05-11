@@ -13,29 +13,31 @@ FOV = 80
 
 window = pyglet.window.Window(width=1280, height=600)
 
-player = Player(window.width/4, window.height/2)
+player = Player(window.width / 4, window.height / 2)
+
 
 def random_lines(n):
     lines = []
     for n in range(n):
         line = Line(
-            Point2D(random.randint(0, window.width / 2), random.randint(0, window.height)),
-            Point2D(random.randint(0, window.width / 2), random.randint(0, window.height)))
+            Point2D(
+                random.randint(0, window.width / 2), random.randint(0, window.height)
+            ),
+            Point2D(
+                random.randint(0, window.width / 2), random.randint(0, window.height)
+            ),
+        )
         lines.append(line)
     return lines
+
 
 lines = random_lines(LINE_COUNT)
 
 to_draw = []
 
 
-movements = {
-    "left": False,
-    "right": False,
-    "up": False,
-    "down": False,
-    "hide": False
-}
+movements = {"left": False, "right": False, "up": False, "down": False, "hide": False}
+
 
 @window.event
 def on_key_press(symbol, mod):
@@ -49,6 +51,7 @@ def on_key_press(symbol, mod):
         movements["down"] = True
     elif symbol == key.H:
         movements["hide"] = not movements["hide"]
+
 
 @window.event
 def on_key_release(symbol, mod):
@@ -78,6 +81,7 @@ def on_draw():
     for d in draw_now:
         d.draw(pyglet.gl.GL_QUADS)
 
+
 def update_preview_pane():
     each_w = (window.width / 2) / FOV
     for i, sector in enumerate(range(int(window.width / 2), window.width, int(each_w))):
@@ -88,19 +92,26 @@ def update_preview_pane():
             h = window.height
         else:
             brightness = int((255 * (1 / (ray.end.distance(ray.pos) ** 2))) * 3000)
-            
+
             if brightness > 255:
                 brightness = 255
 
-            h = window.height - int((ray.end.distance(ray.pos) / math.sqrt((window.width / 2) ** 2 + window.height ** 2)) * window.height)
+            h = window.height - int(
+                (
+                    ray.end.distance(ray.pos)
+                    / math.sqrt((window.width / 2) ** 2 + window.height ** 2)
+                )
+                * window.height
+            )
 
-        quads =  create_quad_vertex_list(sector, 0, each_w, h)
+        quads = create_quad_vertex_list(sector, 0, each_w, h)
 
-        quad = pyglet.graphics.vertex_list(4,
-            ('v2f', quads),
-            ('c3B', (brightness,) * 12))
+        quad = pyglet.graphics.vertex_list(
+            4, ("v2f", quads), ("c3B", (brightness,) * 12)
+        )
 
         to_draw.append(quad)
+
 
 def physics_update(e):
     if movements["left"] == True:
@@ -131,10 +142,11 @@ def physics_update(e):
 
     update_preview_pane()
 
+
 def create_quad_vertex_list(x, y, width, height):
     return x, y, x + width, y, x + width, y + height, x, y + height
 
 
-pyglet.clock.schedule_interval(physics_update,1/30)
+pyglet.clock.schedule_interval(physics_update, 1 / 30)
 
 pyglet.app.run()

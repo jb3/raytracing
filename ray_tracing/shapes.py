@@ -1,6 +1,7 @@
 import pyglet
 import math
 
+
 class Point2D:
     def __init__(self, x, y):
         self.x = x
@@ -23,10 +24,10 @@ class Point2D:
         return cls(points[0], points[1])
 
     def distance(self, other):
-        return math.sqrt((other.x - self.x)**2 + (other.y - self.y)**2)
+        return math.sqrt((other.x - self.x) ** 2 + (other.y - self.y) ** 2)
+
 
 class Triangle:
-
     def __init__(self, x, y, w, h):
         self.set(x, y, w, h)
 
@@ -38,9 +39,17 @@ class Triangle:
         self._y = self._y if y is None else y
         self._w = self._w if w is None else w
         self._h = self._h if h is None else h
-        self._tris = ('v2f', (self._x - (self._w / 2), self._y,
-                            self._x + (self._w / 2), self._y,
-                            self._x, self._y + self._h))
+        self._tris = (
+            "v2f",
+            (
+                self._x - (self._w / 2),
+                self._y,
+                self._x + (self._w / 2),
+                self._y,
+                self._x,
+                self._y + self._h,
+            ),
+        )
 
     def move(self, magnitude, heading):
         heading_rads = math.radians(heading)
@@ -58,12 +67,14 @@ class Triangle:
             translated.append(new_x)
             translated.append(new_y)
 
-        self._tris = ('v2f', tuple(translated))
+        self._tris = ("v2f", tuple(translated))
         bottom_left = translated[0], translated[1]
         bottom_right = translated[2], translated[3]
 
-        new_pos = Point2D.from_tuple(bottom_left).midpoint(Point2D.from_tuple(bottom_right))
-        
+        new_pos = Point2D.from_tuple(bottom_left).midpoint(
+            Point2D.from_tuple(bottom_right)
+        )
+
         self._x = new_pos.x
         self._y = new_pos.y
 
@@ -78,25 +89,36 @@ class Triangle:
         centre = Point2D(centre_x, centre_y)
 
         rotated = []
-        angle = a * (math.pi/180)
+        angle = a * (math.pi / 180)
 
         for point in points:
-            rotated_x = math.cos(angle) * (point.x - centre.x) - math.sin(angle) * (point.y - centre.y) + centre.x
-            rotated_y = math.sin(angle) * (point.x - centre.x) + math.cos(angle) * (point.y - centre.y) + centre.y
+            rotated_x = (
+                math.cos(angle) * (point.x - centre.x)
+                - math.sin(angle) * (point.y - centre.y)
+                + centre.x
+            )
+            rotated_y = (
+                math.sin(angle) * (point.x - centre.x)
+                + math.cos(angle) * (point.y - centre.y)
+                + centre.y
+            )
             rotated.append(rotated_x)
             rotated.append(rotated_y)
 
-        self._tris = ('v2f', tuple(rotated))
+        self._tris = ("v2f", tuple(rotated))
         bottom_left = rotated[0], rotated[1]
         bottom_right = rotated[2], rotated[3]
 
-        new_pos = Point2D.from_tuple(bottom_left).midpoint(Point2D.from_tuple(bottom_right))
-        
+        new_pos = Point2D.from_tuple(bottom_left).midpoint(
+            Point2D.from_tuple(bottom_right)
+        )
+
         self._x = new_pos.x
         self._y = new_pos.y
 
     def __repr__(self):
         return f"Triangle(x={self._x}, y={self._y}, w={self._w}, h={self._h})"
+
 
 class Line:
     def __init__(self, fro, to):
@@ -107,6 +129,8 @@ class Line:
         return f"Line(from={self.one}, to={self.two})"
 
     def draw(self):
-        pyglet.graphics.draw(2, pyglet.gl.GL_LINES,
-            ('v2f', (self.one.x, self.one.y, self.two.x, self.two.y))
+        pyglet.graphics.draw(
+            2,
+            pyglet.gl.GL_LINES,
+            ("v2f", (self.one.x, self.one.y, self.two.x, self.two.y)),
         )
