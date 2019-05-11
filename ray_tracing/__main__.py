@@ -44,25 +44,6 @@ def random_lines(n):
 
 lines = random_lines(LINE_COUNT)
 
-lines = [
-    Line(
-        Point2D((window.width / 4), window.height / 2),
-        Point2D((window.width / 4) + 40, window.height / 2)
-    ),
-    Line(
-        Point2D((window.width / 4) + 40, window.height / 2),
-        Point2D((window.width / 4) + 40, (window.height / 2) + 40)
-    ),
-    Line(
-        Point2D((window.width / 4) + 40, (window.height / 2) + 40),
-        Point2D(window.width / 4, (window.height / 2) + 40)
-    ),
-    Line(
-        Point2D(window.width / 4, (window.height / 2) + 40),
-        Point2D(window.width / 4, window.height / 2)
-    )
-]
-
 to_draw = []
 
 
