@@ -15,6 +15,8 @@ class Ray:
         self.u = None
         self.t = None
 
+        self.target_colour = None
+
     def __repr__(self):
         return f"Ray(heading={self.heading}, u={self.u}, t={self.t}, distance={self.end.distance(self.pos)})"
 
@@ -75,3 +77,4 @@ class Ray:
 
         self.end = intersection_point
         self.line = Line(self.pos, intersection_point)
+        self.target_colour = line.colour

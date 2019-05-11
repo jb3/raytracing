@@ -130,9 +130,14 @@ class Triangle:
 
 
 class Line:
-    def __init__(self, a, b):
+    def __init__(self, a, b, colour=None):
         self.a = a
         self.b = b
+
+        if colour is None:
+            colour = (255, 255, 255)
+
+        self.colour = colour
 
     def __repr__(self):
         return f"Line(a={self.a}, b={self.b})"
@@ -142,4 +147,5 @@ class Line:
             2,
             pyglet.gl.GL_LINES,
             ("v2f", (self.a.x, self.a.y, self.b.x, self.b.y)),
+            ("c3B", self.colour * 2),
         )
