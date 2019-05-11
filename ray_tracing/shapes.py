@@ -130,6 +130,8 @@ class Line:
         return f"Line(from={self.one}, to={self.two})"
 
     def draw(self):
-        pyglet.graphics.draw(2, pyglet.gl.GL_LINES,
-            ('v2f', (self.one.x, self.one.y, self.two.x, self.two.y))
+        pyglet.graphics.draw(
+            2,
+            pyglet.gl.GL_LINES,
+            ("v2f", (self.one.x, self.one.y, self.two.x, self.two.y)),
         )
