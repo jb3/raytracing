@@ -13,10 +13,17 @@ FOV = 80
 
 # now the fun begins
 
+def create_quad_vertex_list(x, y, width, height):
+    return x, y, x + width, y, x + width, y + height, x, y + height
+
 window = pyglet.window.Window(width=1280, height=600)
 
 player = Player(window.width / 4, window.height / 2)
 
+preview_pane_quad_v_list = create_quad_vertex_list(window.width / 2, 0, window.width / 2, window.height)
+
+preview_pane_quad = pyglet.graphics.vertex_list(
+            4, ("v2f", preview_pane_quad_v_list), ("c3B", (0,) * 12))
 
 def random_lines(n):
     lines = []
@@ -36,6 +43,25 @@ def random_lines(n):
 
 
 lines = random_lines(LINE_COUNT)
+
+lines = [
+    Line(
+        Point2D((window.width / 4), window.height / 2),
+        Point2D((window.width / 4) + 40, window.height / 2)
+    ),
+    Line(
+        Point2D((window.width / 4) + 40, window.height / 2),
+        Point2D((window.width / 4) + 40, (window.height / 2) + 40)
+    ),
+    Line(
+        Point2D((window.width / 4) + 40, (window.height / 2) + 40),
+        Point2D(window.width / 4, (window.height / 2) + 40)
+    ),
+    Line(
+        Point2D(window.width / 4, (window.height / 2) + 40),
+        Point2D(window.width / 4, window.height / 2)
+    )
+]
 
 to_draw = []
 
@@ -85,6 +111,8 @@ def on_draw():
         for line in lines:
             line.draw()
 
+    preview_pane_quad.draw(pyglet.gl.GL_QUADS)
+
     draw_now = to_draw[:]
     to_draw.clear()
 
@@ -99,12 +127,17 @@ def update_preview_pane():
     ):
         ray = player.rays[::-1][i]
 
+        dist = ray.end.distance(ray.pos)
+
         if ray.u == None:
             brightness = 0
             h = window.height
+        elif dist == 0:
+            brightness = 1
+            h = window.height
         else:
             brightness = int(
-                (255 * (1 / (ray.end.distance(ray.pos) ** 2))) * 2000
+                (255 * (1 / (dist ** 2))) * 2000
             )
 
             if brightness > 255:
@@ -161,10 +194,6 @@ def physics_update(e):
     player.rays = rays
 
     update_preview_pane()
-
-
-def create_quad_vertex_list(x, y, width, height):
-    return x, y, x + width, y, x + width, y + height, x, y + height
 
 
 pyglet.clock.schedule_interval(physics_update, 1 / 30)
