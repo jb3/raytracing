@@ -1,5 +1,7 @@
-from .shapes import Line, Point2D
 import math
+
+from .shapes import Line, Point2D
+
 
 class Ray:
     def __init__(self, pos, heading):

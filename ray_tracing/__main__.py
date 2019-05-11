@@ -1,10 +1,12 @@
+import math
+import random
+
 import pyglet
 from pyglet.window import key
+
 from .player import Player
-from .shapes import Line, Point2D
 from .ray import Ray
-import random
-import math
+from .shapes import Line, Point2D
 
 LINE_COUNT = 10
 FOV = 80
