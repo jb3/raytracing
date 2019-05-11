@@ -1,3 +1,4 @@
+import colorsys
 import math
 import random
 
@@ -25,6 +26,12 @@ preview_pane_quad_v_list = create_quad_vertex_list(window.width / 2, 0, window.w
 preview_pane_quad = pyglet.graphics.vertex_list(
             4, ("v2f", preview_pane_quad_v_list), ("c3B", (0,) * 12))
 
+
+def random_colour():
+    r, g, b = colorsys.hsv_to_rgb(random.random(), 1, 1)
+    return (int(r * 255), int(g * 255), int(b * 255))
+
+
 def random_lines(n):
     lines = []
     for n in range(n):
@@ -37,6 +44,7 @@ def random_lines(n):
                 random.randint(0, window.width / 2),
                 random.randint(0, window.height),
             ),
+            colour=random_colour()
         )
         lines.append(line)
     return lines
@@ -110,6 +118,8 @@ def update_preview_pane():
 
         dist = ray.end.distance(ray.pos)
 
+        colour = (0, 0, 0)
+
         if ray.u == None:
             brightness = 0
             h = window.height
@@ -117,12 +127,14 @@ def update_preview_pane():
             brightness = 1
             h = window.height
         else:
-            brightness = int(
-                (255 * (1 / (dist ** 2))) * 2000
-            )
+            brightness = (1 / (dist ** 2)) * 3000
 
-            if brightness > 255:
-                brightness = 255
+            if brightness > 1:
+                brightness = 1
+
+            colour = tuple(
+                int(channel * brightness) for channel in ray.target_colour
+            )
 
             h = window.height - int(
                 (
@@ -137,7 +149,7 @@ def update_preview_pane():
         quads = create_quad_vertex_list(sector, 0, each_w, h)
 
         quad = pyglet.graphics.vertex_list(
-            4, ("v2f", quads), ("c3B", (brightness,) * 12)
+            4, ("v2f", quads), ("c3B", colour * 4)
         )
 
         to_draw.append(quad)
