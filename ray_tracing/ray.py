@@ -1,5 +1,6 @@
-from .shapes import Line, Point2D
 import math
+
+from .shapes import Line, Point2D
 
 
 class Ray:
