@@ -113,7 +113,9 @@ def update_preview_pane():
             h = window.height - int(
                 (
                     ray.end.distance(ray.pos)
-                    / math.sqrt((window.width / 2) ** 2 + window.height ** 2)
+                    / math.sqrt(
+                        (window.width / 2) ** 2 + window.height ** 2
+                    )
                 )
                 * window.height
             )
@@ -144,7 +146,9 @@ def physics_update(e):
         player.heading - int(FOV / 2), player.heading + int(FOV / 2)
     )
 
-    origin_point = Point2D(player.tri._tris[1][4], player.tri._tris[1][5])
+    origin_point = Point2D(
+        player.tri._tris[1][4], player.tri._tris[1][5]
+    )
 
     rays = []
 

@@ -25,7 +25,9 @@ class Point2D:
         return cls(points[0], points[1])
 
     def distance(self, other):
-        return math.sqrt((other.x - self.x) ** 2 + (other.y - self.y) ** 2)
+        return math.sqrt(
+            (other.x - self.x) ** 2 + (other.y - self.y) ** 2
+        )
 
 
 class Triangle:
@@ -33,7 +35,9 @@ class Triangle:
         self.set(x, y, w, h)
 
     def draw(self):
-        pyglet.graphics.vertex_list(3, self._tris).draw(pyglet.gl.GL_TRIANGLES)
+        pyglet.graphics.vertex_list(3, self._tris).draw(
+            pyglet.gl.GL_TRIANGLES
+        )
 
     def set(self, x=None, y=None, w=None, h=None):
         self._x = self._x if x is None else x
@@ -58,7 +62,9 @@ class Triangle:
         x_points = self._tris[1][::2]
         y_points = self._tris[1][1::2]
 
-        points = list(map(Point2D.from_tuple, zip(x_points, y_points)))
+        points = list(
+            map(Point2D.from_tuple, zip(x_points, y_points))
+        )
 
         translated = []
 
@@ -83,7 +89,9 @@ class Triangle:
         x_points = self._tris[1][::2]
         y_points = self._tris[1][1::2]
 
-        points = list(map(Point2D.from_tuple, zip(x_points, y_points)))
+        points = list(
+            map(Point2D.from_tuple, zip(x_points, y_points))
+        )
 
         centre_x = sum(x_points) / 3
         centre_y = sum(y_points) / 3

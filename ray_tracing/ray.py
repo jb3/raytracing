@@ -40,13 +40,20 @@ class Ray:
         x4 = self.end.x
         y4 = self.end.y
 
-        denominator = ((x1 - x2) * (y3 - y4)) - ((y1 - y2) * (x3 - x4))
+        denominator = ((x1 - x2) * (y3 - y4)) - (
+            (y1 - y2) * (x3 - x4)
+        )
 
         if denominator == 0:
             return
 
-        t = (((x1 - x3) * (y3 - y4)) - ((y1 - y3) * (x3 - x4))) / denominator
-        u = -((((x1 - x2) * (y1 - y3)) - ((y1 - y2) * (x1 - x3))) / denominator)
+        t = (
+            ((x1 - x3) * (y3 - y4)) - ((y1 - y3) * (x3 - x4))
+        ) / denominator
+        u = -(
+            (((x1 - x2) * (y1 - y3)) - ((y1 - y2) * (x1 - x3)))
+            / denominator
+        )
 
         if u < 0:
             return
@@ -58,7 +65,9 @@ class Ray:
             ((x1 + ((x2 - x1) * t)), (y1 + ((y2 - y1) * t)))
         )
 
-        if self.pos.distance(intersection_point) > self.pos.distance(self.end):
+        if self.pos.distance(intersection_point) > self.pos.distance(
+            self.end
+        ):
             return
 
         self.u = u
