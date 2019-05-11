@@ -1,5 +1,6 @@
 from .shapes import Triangle
 
+
 class Player:
     def __init__(self, x, y, w=30, h=30):
         self.tri = Triangle(x, y, w, h)

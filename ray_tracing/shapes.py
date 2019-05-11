@@ -1,5 +1,7 @@
-import pyglet
 import math
+
+import pyglet
+
 
 class Point2D:
     def __init__(self, x, y):
