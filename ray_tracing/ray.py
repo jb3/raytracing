@@ -30,10 +30,10 @@ class Ray:
         return Point2D(new_x, new_y)
 
     def test_for_intersection(self, line):
-        x1 = line.one.x
-        y1 = line.one.y
-        x2 = line.two.x
-        y2 = line.two.y
+        x1 = line.a.x
+        y1 = line.a.y
+        x2 = line.b.x
+        y2 = line.b.y
 
         x3 = self.pos.x
         y3 = self.pos.y

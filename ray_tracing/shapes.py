@@ -130,16 +130,16 @@ class Triangle:
 
 
 class Line:
-    def __init__(self, fro, to):
-        self.one = fro
-        self.two = to
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
 
     def __repr__(self):
-        return f"Line(from={self.one}, to={self.two})"
+        return f"Line(a={self.a}, b={self.b})"
 
     def draw(self):
         pyglet.graphics.draw(
             2,
             pyglet.gl.GL_LINES,
-            ("v2f", (self.one.x, self.one.y, self.two.x, self.two.y)),
+            ("v2f", (self.a.x, self.a.y, self.b.x, self.b.y)),
         )
