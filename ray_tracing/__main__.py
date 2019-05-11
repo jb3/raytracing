@@ -23,10 +23,12 @@ def random_lines(n):
     for n in range(n):
         line = Line(
             Point2D(
-                random.randint(0, window.width / 2), random.randint(0, window.height)
+                random.randint(0, window.width / 2),
+                random.randint(0, window.height),
             ),
             Point2D(
-                random.randint(0, window.width / 2), random.randint(0, window.height)
+                random.randint(0, window.width / 2),
+                random.randint(0, window.height),
             ),
         )
         lines.append(line)
@@ -38,7 +40,13 @@ lines = random_lines(LINE_COUNT)
 to_draw = []
 
 
-movements = {"left": False, "right": False, "up": False, "down": False, "hide": False}
+movements = {
+    "left": False,
+    "right": False,
+    "up": False,
+    "down": False,
+    "hide": False,
+}
 
 
 @window.event
@@ -86,14 +94,18 @@ def on_draw():
 
 def update_preview_pane():
     each_w = (window.width / 2) / FOV
-    for i, sector in enumerate(range(int(window.width / 2), window.width, int(each_w))):
+    for i, sector in enumerate(
+        range(int(window.width / 2), window.width, int(each_w))
+    ):
         ray = player.rays[::-1][i]
 
         if ray.u == None:
             brightness = 0
             h = window.height
         else:
-            brightness = int((255 * (1 / (ray.end.distance(ray.pos) ** 2))) * 3000)
+            brightness = int(
+                (255 * (1 / (ray.end.distance(ray.pos) ** 2))) * 3000
+            )
 
             if brightness > 255:
                 brightness = 255
@@ -128,7 +140,9 @@ def physics_update(e):
     if movements["down"] == True:
         player.move(-10)
 
-    range_of_rays = range(player.heading - int(FOV / 2), player.heading + int(FOV / 2))
+    range_of_rays = range(
+        player.heading - int(FOV / 2), player.heading + int(FOV / 2)
+    )
 
     origin_point = Point2D(player.tri._tris[1][4], player.tri._tris[1][5])
 
