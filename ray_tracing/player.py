@@ -2,7 +2,7 @@ from .shapes import Triangle
 
 
 class Player:
-    def __init__(self, x, y, w=30, h=30):
+    def __init__(self, x, y, w=10, h=10):
         self.tri = Triangle(x, y, w, h)
         self.heading = 90  # North
         self.rays = []
