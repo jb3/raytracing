@@ -7,6 +7,6 @@ The code isn't beautiful, and it sure ain't efficient.
 
 But... it looks cool:
 
-![img1](https://cdn.discordapp.com/attachments/464905259261755392/576868595800473617/unknown.png)
-![img2](https://cdn.discordapp.com/attachments/464905259261755392/576865561456148510/unknown.png)
-![img3](https://cdn.discordapp.com/attachments/464905259261755392/576865067992219658/unknown.png)
+![img1](https://cdn.discordapp.com/attachments/238737601648001024/579294247547568138/unknown.png)
+![img2](https://cdn.discordapp.com/attachments/238737601648001024/579294348684951553/unknown.png)
+![img3](https://cdn.discordapp.com/attachments/238737601648001024/579294493556211753/unknown.png)
