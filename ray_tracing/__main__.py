@@ -61,7 +61,6 @@ movements = {
     "up": False,
     "down": False,
     "hide": False,
-    "norm": False
 }
 
 
@@ -77,8 +76,6 @@ def on_key_press(symbol, mod):
         movements["down"] = True
     elif symbol == key.H:
         movements["hide"] = not movements["hide"]
-    elif symbol == key.N:
-        movements["norm"] = not movements["norm"]
 
 
 @window.event
@@ -143,8 +140,7 @@ def update_preview_pane():
 
             dist = ray.end.distance(ray.pos)
 
-            if movements["norm"] is True:
-                dist *= math.cos(math.radians(heading))
+            dist *= math.cos(math.radians(heading))
 
             h = window.height - int(
                 (
