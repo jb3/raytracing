@@ -10,14 +10,14 @@ from .ray import Ray
 from .shapes import Line, Point2D
 
 LINE_COUNT = 10
-FOV = 80
+FOV = 60
 
 # now the fun begins
 
 def create_quad_vertex_list(x, y, width, height):
     return x, y, x + width, y, x + width, y + height, x, y + height
 
-window = pyglet.window.Window(width=1280, height=600)
+window = pyglet.window.Window(width=1440, height=600)
 
 player = Player(window.width / 4, window.height / 2)
 
@@ -61,6 +61,7 @@ movements = {
     "up": False,
     "down": False,
     "hide": False,
+    "norm": False
 }
 
 
@@ -76,6 +77,8 @@ def on_key_press(symbol, mod):
         movements["down"] = True
     elif symbol == key.H:
         movements["hide"] = not movements["hide"]
+    elif symbol == key.N:
+        movements["norm"] = not movements["norm"]
 
 
 @window.event
@@ -136,9 +139,16 @@ def update_preview_pane():
                 int(channel * brightness) for channel in ray.target_colour
             )
 
+            heading = ray.heading - player.heading
+
+            dist = ray.end.distance(ray.pos)
+
+            if movements["norm"] is True:
+                dist *= math.cos(math.radians(heading))
+
             h = window.height - int(
                 (
-                    ray.end.distance(ray.pos)
+                    dist
                     / math.sqrt(
                         (window.width / 2) ** 2 + window.height ** 2
                     )
