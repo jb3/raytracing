@@ -14,17 +14,13 @@ FOV = 60
 
 # now the fun begins
 
-def create_quad_vertex_list(x, y, width, height):
-    return x, y, x + width, y, x + width, y + height, x, y + height
-
 window = pyglet.window.Window(width=1440, height=600)
 
 player = Player(window.width / 4, window.height / 2)
 
-preview_pane_quad_v_list = create_quad_vertex_list(window.width / 2, 0, window.width / 2, window.height)
 
-preview_pane_quad = pyglet.graphics.vertex_list(
-            4, ("v2f", preview_pane_quad_v_list), ("c3B", (0,) * 12))
+def create_quad_vertex_list(x, y, width, height):
+    return x, y, x + width, y, x + width, y + height, x, y + height
 
 
 def random_colour():
@@ -54,6 +50,12 @@ lines = random_lines(LINE_COUNT)
 
 to_draw = []
 
+preview_pane_quad_v_list = create_quad_vertex_list(window.width / 2, 0,
+                                                   window.width / 2,
+                                                   window.height)
+
+preview_pane_quad = pyglet.graphics.vertex_list(
+            4, ("v2f", preview_pane_quad_v_list), ("c3B", (0,) * 12))
 
 movements = {
     "left": False,
@@ -95,7 +97,7 @@ def on_draw():
 
     window.clear()
 
-    if movements["hide"] == False:
+    if movements["hide"] is False:
         player.draw()
         for line in lines:
             line.draw()
@@ -120,7 +122,7 @@ def update_preview_pane():
 
         colour = (0, 0, 0)
 
-        if ray.u == None:
+        if ray.u is None:
             brightness = 0
             h = window.height
         elif dist == 0:
@@ -162,16 +164,16 @@ def update_preview_pane():
 
 
 def physics_update(e):
-    if movements["left"] == True:
+    if movements["left"] is True:
         player.rotate(6)
 
-    if movements["right"] == True:
+    if movements["right"] is True:
         player.rotate(-6)
 
-    if movements["up"] == True:
+    if movements["up"] is True:
         player.move(10)
 
-    if movements["down"] == True:
+    if movements["down"] is True:
         player.move(-10)
 
     range_of_rays = range(
@@ -197,4 +199,5 @@ def physics_update(e):
 
 pyglet.clock.schedule_interval(physics_update, 1 / 30)
 
-pyglet.app.run()
+if __name__ == "__main__":
+    pyglet.app.run()

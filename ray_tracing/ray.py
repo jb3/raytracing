@@ -18,7 +18,11 @@ class Ray:
         self.target_colour = None
 
     def __repr__(self):
-        return f"Ray(heading={self.heading}, u={self.u}, t={self.t}, distance={self.end.distance(self.pos)})"
+        return (
+            f"Ray(heading={self.heading},"
+            f" u={self.u}, t={self.t}, "
+            f"distance={self.end.distance(self.pos)})"
+        )
 
     def draw(self):
         self.line.draw()
