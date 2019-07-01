@@ -5,7 +5,7 @@ Raytracing with Python using Pyglet
 
 The code isn't beautiful, and it sure ain't efficient.
 
-But... it looks cool:
+But... it looks cool 👽:
 
 ![img1](https://cdn.discordapp.com/attachments/238737601648001024/579294247547568138/unknown.png)
 ![img2](https://cdn.discordapp.com/attachments/238737601648001024/579294348684951553/unknown.png)
