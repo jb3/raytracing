@@ -200,4 +200,5 @@ def physics_update(e):
 pyglet.clock.schedule_interval(physics_update, 1 / 30)
 
 if __name__ == "__main__":
+    print("👽")
     pyglet.app.run()
